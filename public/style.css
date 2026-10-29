@@ -574,14 +574,31 @@ a[href^="mailto:"]{ overflow-wrap:anywhere; word-break:break-word; }
 
 /* =========================================================
    MOBILE HERO (portrait phones): show more of the wave
+   works with every weather mode (sun, rain, storm, snow, fog)
    ========================================================= */
 @media (max-width:700px) and (orientation:portrait){
-   .hero{ background:linear-gradient(to right,#edcce1,#e2b1d2); }
-   .hero-media{
-      background:url('hero-wave.jpg') 70% bottom / auto 64% no-repeat;
+   .hero{ background:#eadcf0; }
+   .hero::before{
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(to right,#edcce1,#e2b1d2);
+      transition:filter .8s ease;
+   }
+   .hero[data-weather] .hero-media{
+      background-color:transparent;
+      background-image:url('hero-wave.jpg');
+      background-position:70% bottom;
+      background-size:auto 64%;
+      background-repeat:no-repeat;
       -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 34%);
               mask-image:linear-gradient(to bottom, transparent 0%, #000 34%);
    }
    .hero-media::before{ background-position:70% bottom; background-size:auto 64%; }
    .hero-proof{ justify-content:center; align-items:center; text-align:center; }
+
+   /* same weather filters on the top fill, so image and fill always match */
+   .hero[data-weather="sun"]::before  { filter:hue-rotate(-150deg) saturate(.7) brightness(1.25); }
+   .hero[data-weather="rain"]::before { filter:saturate(.6) brightness(.8); }
+   .hero[data-weather="storm"]::before{ filter:saturate(.4) brightness(.55) contrast(1.1); }
+   .hero[data-weather="snow"]::before { filter:saturate(.5) brightness(1.15) hue-rotate(10deg); }
+   .hero[data-weather="fog"]::before  { filter:saturate(.3) brightness(1.4); }
 }
