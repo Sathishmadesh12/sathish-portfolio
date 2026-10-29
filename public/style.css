@@ -589,8 +589,8 @@ a[href^="mailto:"]{ overflow-wrap:anywhere; word-break:break-word; }
       background-position:70% bottom;
       background-size:auto 64%;
       background-repeat:no-repeat;
-      -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 34%);
-              mask-image:linear-gradient(to bottom, transparent 0%, #000 34%);
+      -webkit-mask-image:linear-gradient(to bottom, transparent 35%, rgba(0,0,0,.04) 40%, rgba(0,0,0,.16) 46%, rgba(0,0,0,.42) 54%, rgba(0,0,0,.76) 63%, #000 74%);
+        mask-image:linear-gradient(to bottom, transparent 35%, rgba(0,0,0,.04) 40%, rgba(0,0,0,.16) 46%, rgba(0,0,0,.42) 54%, rgba(0,0,0,.76) 63%, #000 74%);
    }
    .hero-media::before{ background-position:70% bottom; background-size:auto 64%; }
    .hero-proof{ justify-content:center; align-items:center; text-align:center; }
