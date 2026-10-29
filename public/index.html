@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Sathish Kumar M — Full Stack Developer</title>
+   <meta name="description" content="Sathish Kumar M — Full Stack Developer specializing in MERN & PERN stacks. Node.js, React.js, PostgreSQL, MongoDB, TypeScript.">
+   <link rel="icon" type="image/png" href="favicon.png">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+   <header class="nav" id="nav">
+      <a href="#home" class="brand">Sathish Kumar M</a>
+      <div class="nav-right">
+         <div class="wx" id="wx">
+            <button class="wx-btn" id="wxBtn" aria-haspopup="true" aria-expanded="false" aria-controls="wxList" aria-label="Change page weather">
+               <i class="fa-solid fa-moon" id="wxIcon"></i><span class="wx-name" id="wxName">Clear</span>
+            </button>
+            <ul class="wx-list" id="wxList" role="menu">
+               <li><button role="menuitemradio" data-wx="clear"><i class="fa-solid fa-moon"></i> Clear</button></li>
+               <li><button role="menuitemradio" data-wx="sun"><i class="fa-solid fa-sun"></i> Sunny</button></li>
+               <li><button role="menuitemradio" data-wx="rain"><i class="fa-solid fa-cloud-rain"></i> Rain</button></li>
+               <li><button role="menuitemradio" data-wx="storm"><i class="fa-solid fa-cloud-bolt"></i> Storm</button></li>
+               <li><button role="menuitemradio" data-wx="snow"><i class="fa-solid fa-snowflake"></i> Snow</button></li>
+               <li><button role="menuitemradio" data-wx="fog"><i class="fa-solid fa-smog"></i> Fog</button></li>
+            </ul>
+         </div>
+         <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menuPanel">Menu</button>
+      </div>
+   </header>
+
+   <div class="menu-panel" id="menuPanel" aria-hidden="true">
+      <div class="menu-inner">
+         <nav aria-label="Main">
+            <a href="#home">Home</a>
+            <a href="#projects">Projects</a>
+            <a href="#services">Services</a>
+            <a href="#skills">Skills</a>
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+         </nav>
+         <aside class="menu-side">
+            <p class="menu-status"> Open to full stack roles and freelance work</p>
+            <div>
+               <p class="menu-k">Email</p>
+               <a href="mailto:sathishkumar1572003@gmail.com">sathishkumar1572003@gmail.com</a>
+            </div>
+            <div>
+               <p class="menu-k">Phone</p>
+               <a href="tel:+919360436225">+91 93604 36225</a>
+            </div>
+            <div>
+               <p class="menu-k">Based in</p>
+               <p>Hosur, Tamil Nadu, India</p>
+            </div>
+            <div class="menu-social">
+               <a href="https://www.linkedin.com/in/sathishkumar-m-646165293/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+               <a href="https://x.com/SATHISH_GOWDA20" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+               <a href="https://www.instagram.com/sathish_gowda20" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <a href="resume.pdf" class="menu-resume" download>Download resume <i class="fa-solid fa-arrow-right"></i></a>
+         </aside>
+      </div>
+   </div>
+
+   <main>
+      <!-- HERO -->
+      <section id="home" class="hero" data-theme="light" data-weather="clear">
+         <div class="hero-media" aria-hidden="true"></div>
+         <div class="hero-inner">
+            <p class="eyebrow eyebrow-light">Open to opportunities</p>
+            <h1>Full stack developer shipping production SaaS, end to end.</h1>
+            <p class="hero-sub">Building reliable web products on the MERN and PERN stacks.</p>
+            <a href="#contact" class="pill pill-black">Get in Touch <i class="fa-solid fa-arrow-right"></i></a>
+            <p class="hero-proof"> 3 production SaaS platforms shipped in 2+ years</p>
+         </div>
+      </section>
+
+      <!-- IMPACT -->
+      <section class="impact" data-theme="dark" aria-label="Results at a glance">
+         <dl class="container impact-grid">
+            <div><dt>30%</dt><dd>higher user engagement across 3 client web apps</dd></div>
+            <div><dt>40%</dt><dd>faster average API response after indexing and query tuning</dd></div>
+            <div><dt>20%</dt><dd>more completed transactions after Stripe and Razorpay integration</dd></div>
+            <div><dt>25%</dt><dd>faster feature delivery in 2-week Agile sprints</dd></div>
+         </dl>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="light grid-bg" data-theme="light">
+         <div class="container">
+            <div class="head-row">
+               <div>
+                  <p class="eyebrow">Selected work</p>
+                  <h2>Projects</h2>
+               </div>
+               <span class="head-note">3 production platforms</span>
+            </div>
+
+            <div class="work">
+               <article class="work-item">
+                  <div class="work-title">
+                     <h3>Edubotix</h3>
+                     <p>School management SaaS</p>
+                  </div>
+                  <div class="work-body">
+                     <p>Enrollment, attendance, scheduling, fee collection and digital assessments in one platform, with real-time GPS fleet tracking through Socket.IO and Google Maps, plus dedicated Driver and Parent apps.</p>
+                     <ul class="tags"><li>Node.js</li><li>React.js</li><li>Express.js</li><li>PostgreSQL</li><li>MikroORM</li><li>Socket.IO</li><li>AWS S3</li></ul>
+                  </div>
+                  <div class="work-side">
+                     <dl class="stats">
+                        <div><dt>10+</dt><dd>Schools onboarded</dd></div>
+                        <div><dt>99.9%</dt><dd>Fleet uptime</dd></div>
+                        <div><dt>5+</dt><dd>User roles (RBAC)</dd></div>
+                     </dl>
+                     <a href="https://edubotix.ai" target="_blank" rel="noopener" class="visit">Visit site <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                  </div>
+               </article>
+
+               <article class="work-item">
+                  <div class="work-title">
+                     <h3>Aeroservice</h3>
+                     <p>Aviation e-commerce platform</p>
+                  </div>
+                  <div class="work-body">
+                     <p>A scalable B2B marketplace across 6 product categories for international buyers, with DHL real-time tracking, Google Maps warehouse geolocation and MongoDB indexing tuned for fast catalog search.</p>
+                     <ul class="tags"><li>Node.js</li><li>React.js</li><li>Express.js</li><li>MongoDB</li><li>AWS S3</li><li>CDN</li><li>DHL API</li></ul>
+                  </div>
+                  <div class="work-side">
+                     <dl class="stats">
+                        <div><dt>6</dt><dd>Product categories</dd></div>
+                        <div><dt>35%</dt><dd>Fewer fulfillment errors</dd></div>
+                        <div><dt>50%</dt><dd>Faster catalog search</dd></div>
+                     </dl>
+                     <a href="https://fleetstore.aeroservicesltd.com" target="_blank" rel="noopener" class="visit">Visit site <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                  </div>
+               </article>
+
+               <article class="work-item">
+                  <div class="work-title">
+                     <h3>Khayash</h3>
+                     <p>Multi-tenant visitor management</p>
+                  </div>
+                  <div class="work-body">
+                     <p>Multi-tenant SaaS with schema-level data isolation, visitor registration through LoopBack 4 with dependency injection and RBAC, AES encryption, QR-code mobile check-in and automated compliance reports via cron jobs.</p>
+                     <ul class="tags"><li>Node.js</li><li>LoopBack 4</li><li>React.js</li><li>PostgreSQL</li><li>QR Code</li><li>Docker</li></ul>
+                  </div>
+                  <div class="work-side">
+                     <dl class="stats">
+                        <div><dt>50+</dt><dd>Client organizations</dd></div>
+                        <div><dt>60%</dt><dd>Faster check-in</dd></div>
+                        <div><dt>0</dt><dd>Cross-tenant incidents</dd></div>
+                     </dl>
+                     <a href="https://khayash.com" target="_blank" rel="noopener" class="visit">Visit site <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                  </div>
+               </article>
+            </div>
+         </div>
+      </section>
+
+      <!-- SERVICES -->
+      <section id="services" class="light grid-bg" data-theme="light">
+         <div class="container">
+            <div class="head-row">
+               <div>
+                  <p class="eyebrow">Services</p>
+                  <h2>What I can build for you</h2>
+               </div>
+               <span class="head-note">Full stack, start to finish</span>
+            </div>
+            <div class="svc">
+               <article>
+                  <span class="svc-ico"><i class="fa-solid fa-layer-group"></i></span>
+                  <h3>SaaS platforms</h3>
+                  <p>Multi-tenant products with role-based access, billing and admin tools, built on MERN or PERN.</p>
+               </article>
+               <article>
+                  <span class="svc-ico"><i class="fa-solid fa-code-branch"></i></span>
+                  <h3>APIs and databases</h3>
+                  <p>Secure REST APIs with JWT and OAuth 2.0, plus PostgreSQL and MongoDB schemas that stay fast as data grows.</p>
+               </article>
+               <article>
+                  <span class="svc-ico"><i class="fa-solid fa-location-crosshairs"></i></span>
+                  <h3>Real-time and integrations</h3>
+                  <p>Live tracking with Socket.IO, payments with Stripe and Razorpay, maps and shipping with Google Maps and DHL.</p>
+               </article>
+               <article>
+                  <span class="svc-ico"><i class="fa-brands fa-docker"></i></span>
+                  <h3>Deploy and tune</h3>
+                  <p>Docker and AWS deployments, with performance checks so the app keeps up after launch.</p>
+               </article>
+            </div>
+
+            <h3 class="proc-title">How a project runs</h3>
+            <ol class="proc">
+               <li><b>Understand</b><span>We agree on the problem, the users and what a first release must do.</span></li>
+               <li><b>Design</b><span>I sketch the data model and API before any screens are built.</span></li>
+               <li><b>Build</b><span>Two-week sprints, with a working demo at the end of each one.</span></li>
+               <li><b>Ship and tune</b><span>Deploy, watch real usage, then fix what the numbers show.</span></li>
+            </ol>
+         </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills" class="dark" data-theme="dark">
+         <div class="container">
+            <div class="center-head">
+               <span class="icon-box icon-box-lg"><i class="fa-solid fa-bolt"></i></span>
+               <p class="eyebrow eyebrow-light">What I work with</p>
+               <h2>Skills that ship products</h2>
+               <p class="sub">The tools I reach for, and how I like to work.</p>
+            </div>
+
+            <div class="cards">
+               <article class="card">
+                  <span class="icon-box"><i class="fa-solid fa-display"></i></span>
+                  <p class="card-label">Frontend</p>
+                  <h3>React.js, Next.js, TypeScript</h3>
+                  <p>Styled with Tailwind, Bootstrap or Material UI depending on the project. TypeScript on anything that will grow.</p>
+               </article>
+               <article class="card">
+                  <span class="icon-box"><i class="fa-solid fa-server"></i></span>
+                  <p class="card-label">Backend</p>
+                  <h3>Node.js, Express, LoopBack 4</h3>
+                  <p>REST APIs secured with JWT and OAuth 2.0. LoopBack 4 when a project needs multi-tenant structure and dependency injection.</p>
+               </article>
+               <article class="card">
+                  <span class="icon-box"><i class="fa-solid fa-database"></i></span>
+                  <p class="card-label">Databases</p>
+                  <h3>PostgreSQL and MongoDB</h3>
+                  <p>Sequelize and MikroORM for relational data, Mongoose for anything unstructured. Comfortable writing and tuning raw queries.</p>
+               </article>
+               <article class="card">
+                  <span class="icon-box"><i class="fa-solid fa-plug"></i></span>
+                  <p class="card-label">Integrations</p>
+                  <h3>Payments, maps and real-time</h3>
+                  <p>Stripe and Razorpay for payments, Google Maps and DHL for logistics, Socket.IO for live updates.</p>
+               </article>
+               <article class="card">
+                  <span class="icon-box"><i class="fa-brands fa-aws"></i></span>
+                  <p class="card-label">Cloud and tools</p>
+                  <h3>AWS, Docker, Git, Figma</h3>
+                  <p>Deploy on AWS S3 and EC2, containerize with Docker, ship through GitHub, and prototype in Figma before touching code.</p>
+               </article>
+               <article class="card">
+                  <span class="icon-box"><i class="fa-solid fa-people-group"></i></span>
+                  <p class="card-label">Ways of working</p>
+                  <h3>Agile, in 2-week sprints</h3>
+                  <p>Tight feedback loops with product and design. I'd rather ship something small and iterate than sit on a big release.</p>
+               </article>
+            </div>
+
+            <div class="stack">
+               <h3 class="stack-title">MERN or PERN: how I choose</h3>
+               <div class="stack-cols">
+                  <article>
+                     <p class="stack-tag">MERN · MongoDB</p>
+                     <p>Best when data is document-shaped or changes often, like product catalogs with flexible attributes. I used it for Aeroservice, with indexes tuned for fast catalog search.</p>
+                  </article>
+                  <article>
+                     <p class="stack-tag">PERN · PostgreSQL</p>
+                     <p>Best when data has strict relationships and reporting needs, like fees, attendance or tenants. I used it for Edubotix and Khayash.</p>
+                  </article>
+               </div>
+
+               <h3 class="stack-title">A typical request, end to end</h3>
+               <ol class="flow">
+                  <li><i class="fa-brands fa-react"></i><b>Client</b><span>React.js UI, form validation, state</span></li>
+                  <li><i class="fa-brands fa-node-js"></i><b>API</b><span>Express or LoopBack 4, JWT and OAuth 2.0, RBAC</span></li>
+                  <li><i class="fa-solid fa-database"></i><b>Database</b><span>PostgreSQL or MongoDB, indexed queries</span></li>
+                  <li><i class="fa-brands fa-aws"></i><b>Cloud</b><span>AWS S3 and EC2, Docker containers</span></li>
+               </ol>
+            </div>
+         </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="light grid-bg" data-theme="light">
+         <div class="container">
+            <div class="about-card">
+               <div class="about-copy">
+                  <p class="eyebrow eyebrow-light">About</p>
+                  <h2>Sathish Kumar M</h2>
+                  <p>I'm a Full Stack Developer at <strong>Nextbrain Technologies</strong> in Bengaluru, where I've led 3 client-facing web applications built with React.js and Node.js, lifting user engagement by 30%.</p>
+                  <p>My core strength is designing and tuning RESTful APIs on PostgreSQL and MongoDB. Indexing and query work cut average API response time by 40%, and every endpoint is secured with JWT and OAuth 2.0.</p>
+                  <p>I've built and shipped 3 production SaaS platforms end to end: a school management system, a B2B aviation marketplace and a multi-tenant visitor management system.</p>
+                  <ul class="facts">
+                     <li><i class="fa-solid fa-briefcase"></i> 2+ years of professional experience</li>
+                     <li><i class="fa-solid fa-graduation-cap"></i> B.Sc Computer Science, Periyar University</li>
+                     <li><i class="fa-solid fa-location-dot"></i> Hosur, Tamil Nadu, India</li>
+                  </ul>
+               </div>
+               <div class="about-photo">
+                  <img src="portrait.jpg" alt="Portrait of Sathish Kumar M" width="900" height="900">
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section id="experience" class="light grid-bg tight-top" data-theme="light">
+         <div class="container">
+            <div class="head-row">
+               <div>
+                  <p class="eyebrow">Career</p>
+                  <h2>Experience</h2>
+               </div>
+            </div>
+
+            <div class="work">
+               <article class="job">
+                  <div class="job-meta">
+                     <p class="job-date">Oct 2024 – Present</p>
+                     <p class="job-role">Full Stack Developer</p>
+                     <p class="job-org">Nextbrain Technologies, Bengaluru</p>
+                  </div>
+                  <ul class="bullets">
+                     <li>Led development of <strong>3 client-facing web applications</strong> with React.js and Node.js, lifting user engagement by <strong>30%</strong>.</li>
+                     <li>Designed and optimized RESTful APIs on PostgreSQL and MongoDB, cutting average response time by <strong>40%</strong> through indexing and query tuning.</li>
+                     <li>Integrated <strong>Stripe</strong> and <strong>Razorpay</strong> payments with Google Maps and DHL shipping APIs, raising completed transactions by <strong>20%</strong>.</li>
+                     <li>Implemented <strong>JWT</strong> and <strong>OAuth 2.0</strong> authentication, securing user data across all production deployments.</li>
+                     <li>Worked in 2-week Agile sprints with product and design teams, speeding up feature delivery by <strong>25%</strong>.</li>
+                  </ul>
+               </article>
+
+               <article class="job">
+                  <div class="job-meta">
+                     <p class="job-date">2020 – 2023</p>
+                     <p class="job-role">B.Sc Computer Science</p>
+                     <p class="job-org">Hosur Arts and Science College, Periyar University</p>
+                  </div>
+                  <ul class="bullets">
+                     <li>Built a solid base in <strong>data structures, algorithms and database design</strong>, which I still use when tuning queries and designing schemas.</li>
+                     <li>Used final-year projects to get hands-on with web development, which led straight into a full-time full stack role.</li>
+                  </ul>
+               </article>
+            </div>
+         </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="light grid-bg" data-theme="light">
+         <div class="container narrow">
+            <div class="center-head">
+               <span class="chip">Full stack FAQ</span>
+               <h2>Questions clients ask</h2>
+            </div>
+            <div class="faq">
+               <details open>
+                  <summary>What does a full stack developer do on your projects?</summary>
+                  <p>I own the whole path: database schema, API, React interface and deployment. One person making these decisions together means fewer handoffs and fewer mismatches between front and back end.</p>
+               </details>
+               <details>
+                  <summary>When do you pick PostgreSQL over MongoDB?</summary>
+                  <p>PostgreSQL when records relate to each other and need reports, such as students, fees and attendance. MongoDB when the shape of the data varies, such as a catalog with many product types.</p>
+               </details>
+               <details>
+                  <summary>How do you keep one customer's data apart from another's?</summary>
+                  <p>On Khayash, each organization gets schema-level isolation in PostgreSQL, on top of role-based access and AES encryption. It has had zero cross-tenant incidents.</p>
+               </details>
+               <details>
+                  <summary>How do you secure an API?</summary>
+                  <p>JWT and OAuth 2.0 for authentication, role-based access for permissions, and encryption for sensitive fields. I add these from the first endpoint, not at the end.</p>
+               </details>
+               <details>
+                  <summary>Are you available for freelance work or a full-time role?</summary>
+                  <p>Both. Send a message through the form below with a short description and I'll reply by email.</p>
+               </details>
+            </div>
+         </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="light grid-bg contact" data-theme="light">
+         <div class="container narrow">
+            <div class="center-head">
+               <span class="chip">Let's talk</span>
+               <h2>Ready to build something together?</h2>
+               <p class="sub">Open to full stack roles and freelance projects. Send a message and I'll reply by email.</p>
+            </div>
+
+            <form class="form" id="contactForm" novalidate>
+               <div class="field-row">
+                  <div class="field">
+                     <label for="cName">Name</label>
+                     <input id="cName" name="name" type="text" autocomplete="name" placeholder="Your name" required maxlength="100">
+                  </div>
+                  <div class="field">
+                     <label for="cEmail">Email</label>
+                     <input id="cEmail" name="email" type="email" autocomplete="email" placeholder="you@company.com" required maxlength="160">
+                  </div>
+               </div>
+               <div class="field">
+                  <label for="cMessage">Message</label>
+                  <textarea id="cMessage" name="message" rows="5" placeholder="Tell me about your project or role" required maxlength="3000"></textarea>
+               </div>
+               <div class="hp" aria-hidden="true">
+                  <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+               </div>
+               <div class="form-foot">
+                  <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+                  <button type="submit" class="pill pill-black" id="submitBtn"><span>Send message</span> <i class="fa-solid fa-arrow-right"></i></button>
+               </div>
+            </form>
+
+            <p class="alt-contact">Prefer email or a call? <a href="mailto:sathishkumar1572003@gmail.com">sathishkumar1572003@gmail.com</a> · <a href="tel:+919360436225">+91 93604 36225</a></p>
+         </div>
+      </section>
+   </main>
+
+   <footer class="footer light grid-bg">
+      <div class="container">
+         <div class="footer-cta">
+            <h2>Have a project in mind?</h2>
+            <a href="mailto:sathishkumar1572003@gmail.com" class="pill pill-black">Email me <i class="fa-solid fa-arrow-right"></i></a>
+         </div>
+         <div class="footer-grid">
+            <div class="footer-brand">
+               <p class="footer-name">Sathish Kumar M</p>
+               <p>Full stack developer building production SaaS on the MERN and PERN stacks.</p>
+               <p class="footer-status"> Open to opportunities</p>
+            </div>
+            <div>
+               <h4>Explore</h4>
+               <ul>
+                  <li><a href="#projects">Projects</a></li>
+                  <li><a href="#services">Services</a></li>
+                  <li><a href="#skills">Skills</a></li>
+                  <li><a href="#about">About</a></li>
+                  <li><a href="#experience">Experience</a></li>
+                  <li><a href="resume.pdf" download>Resume</a></li>
+               </ul>
+            </div>
+            <div>
+               <h4>Services</h4>
+               <ul>
+                  <li><a href="#services">SaaS platforms</a></li>
+                  <li><a href="#services">APIs and databases</a></li>
+                  <li><a href="#services">Real-time and integrations</a></li>
+                  <li><a href="#services">Deploy and tune</a></li>
+                  <li><a href="#faq">Full stack FAQ</a></li>
+               </ul>
+            </div>
+            <div>
+               <h4>Connect</h4>
+               <ul>
+                  <li><a href="mailto:sathishkumar1572003@gmail.com">sathishkumar1572003@gmail.com</a></li>
+                  <li><a href="tel:+919360436225">+91 93604 36225</a></li>
+                  <li>Hosur, Tamil Nadu, India</li>
+                  <li class="social">
+                     <a href="https://www.linkedin.com/in/sathishkumar-m-646165293/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                     <a href="https://x.com/SATHISH_GOWDA20" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                     <a href="https://www.instagram.com/sathish_gowda20" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <ul class="footer-stack" aria-label="Main technologies">
+            <li>Node.js</li><li>React.js</li><li>Next.js</li><li>TypeScript</li><li>Express.js</li><li>PostgreSQL</li><li>MongoDB</li><li>Docker</li><li>AWS</li>
+         </ul>
+         <div class="footer-bottom">
+            <span>© 2026 Sathish Kumar M. All rights reserved.</span>
+            <a href="#home">Back to top <i class="fa-solid fa-arrow-up"></i></a>
+         </div>
+      </div>
+   </footer>
+
+   <div class="wx-tint" id="wxTint" aria-hidden="true"></div>
+   <canvas class="hero-fx" id="heroFx" aria-hidden="true"></canvas>
+   <div class="hero-flash" id="heroFlash" aria-hidden="true"></div>
+
+   <script src="script.js"></script>
+</body>
+</html>
