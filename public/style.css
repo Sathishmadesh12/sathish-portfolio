@@ -590,7 +590,7 @@ a[href^="mailto:"]{ overflow-wrap:anywhere; word-break:break-word; }
       background-size:auto 64%;
       background-repeat:no-repeat;
       -webkit-mask-image:linear-gradient(to bottom, transparent 35%, rgba(0,0,0,.04) 40%, rgba(0,0,0,.16) 46%, rgba(0,0,0,.42) 54%, rgba(0,0,0,.76) 63%, #000 74%);
-        mask-image:linear-gradient(to bottom, transparent 35%, rgba(0,0,0,.04) 40%, rgba(0,0,0,.16) 46%, rgba(0,0,0,.42) 54%, rgba(0,0,0,.76) 63%, #000 74%);
+              mask-image:linear-gradient(to bottom, transparent 35%, rgba(0,0,0,.04) 40%, rgba(0,0,0,.16) 46%, rgba(0,0,0,.42) 54%, rgba(0,0,0,.76) 63%, #000 74%);
    }
    .hero-media::before{ background-position:70% bottom; background-size:auto 64%; }
    .hero-proof{ justify-content:center; align-items:center; text-align:center; }
@@ -602,8 +602,6 @@ a[href^="mailto:"]{ overflow-wrap:anywhere; word-break:break-word; }
    .hero[data-weather="snow"]::before { filter:saturate(.5) brightness(1.15) hue-rotate(10deg); }
    .hero[data-weather="fog"]::before  { filter:saturate(.3) brightness(1.4); }
 }
-
-
 
 /* =========================================================
    SMOOTH MENU OPEN / CLOSE
@@ -646,4 +644,9 @@ body.menu-open .menu-side{ opacity:1; transform:none; transition-delay:.3s; }
 .wx{ transition:opacity .3s ease, visibility .3s; }
 body.menu-open .wx{ opacity:0; visibility:hidden; pointer-events:none; }
 
-/* nav col
+/* nav colour/background changes follow the same speed */
+.nav{ transition:color .4s ease, background .4s ease, padding .25s ease, border-color .4s ease; }
+
+@media (prefers-reduced-motion: reduce){
+   .menu-panel, .menu-inner, .menu-panel nav a, .menu-side{ transition:none !important; transform:none !important; }
+}
