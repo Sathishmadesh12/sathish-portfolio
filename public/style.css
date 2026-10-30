@@ -656,3 +656,29 @@ body.menu-open .wx{ opacity:0; visibility:hidden; pointer-events:none; }
    ========================================================= */
 html{ scroll-behavior:auto; }
 .hero.hero-off .hero-media::before{ animation-play-state:paused; }
+
+/* =========================================================
+   CORPORATE BACKGROUND ON LIGHT SECTIONS
+   clean cool-white + soft blue glow + fine dot grid
+   (Projects, Services, About, Experience, FAQ, Contact, Footer)
+   ========================================================= */
+.light.grid-bg{ isolation:isolate; background:#f7f9fc; }
+.light.grid-bg::after{
+   content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
+   background:
+      radial-gradient(ellipse 55% 45% at var(--wx, 50%) 0%, rgba(40,110,255,.075) 0%, rgba(40,110,255,0) 70%),
+      radial-gradient(ellipse 50% 40% at calc(100% - var(--wx, 50%)) 100%, rgba(0,170,210,.07) 0%, rgba(0,170,210,0) 70%),
+      radial-gradient(circle, rgba(2,20,32,.14) 1px, transparent 1.5px) 0 0 / 24px 24px;
+   -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+           mask-image:linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+}
+#projects{ --wx:85%; }
+#services{ --wx:15%; }
+#about{ --wx:50%; }
+#experience{ --wx:90%; }
+#faq{ --wx:10%; }
+#contact{ --wx:80%; }
+.footer.light{ --wx:20%; }
+
+/* service cards: see-through so the wave shows evenly */
+.svc article, .svc article:first-child, .svc article:nth-child(odd){ background:transparent; }
