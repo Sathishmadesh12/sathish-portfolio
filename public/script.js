@@ -25,9 +25,68 @@ function updateNav(){
    nav.classList.toggle('on-light', theme === 'light');
    nav.classList.toggle('scrolled', window.scrollY > 24);
 }
-window.addEventListener('scroll', updateNav, { passive: true });
+// Run the nav check at most once per frame while scrolling
+let navTick = false;
+window.addEventListener('scroll', () => {
+   if (navTick) return;
+   navTick = true;
+   requestAnimationFrame(() => { updateNav(); navTick = false; });
+}, { passive: true });
 window.addEventListener('resize', updateNav);
 updateNav();
+
+// Smooth, eased scrolling for every #link (menu, buttons, footer)
+(function(){
+   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+   const ease = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;   // easeInOutCubic
+   let anim = 0;
+
+   function scrollToY(y){
+      cancelAnimationFrame(anim);
+      const start = window.scrollY, dist = y - start;
+      if (reduce || Math.abs(dist) < 2){ window.scrollTo(0, y); return; }
+      const dur = Math.min(1500, Math.max(800, Math.abs(dist) * 0.55));
+      let t0 = null;
+      const step = ts => {
+         if (t0 === null) t0 = ts;
+         const p = Math.min((ts - t0) / dur, 1);
+         window.scrollTo(0, start + dist * ease(p));
+         if (p < 1) anim = requestAnimationFrame(step);
+      };
+      anim = requestAnimationFrame(step);
+   }
+
+   // user scrolls by hand -> stop the animation
+   ['wheel', 'touchstart', 'keydown'].forEach(ev =>
+      window.addEventListener(ev, () => cancelAnimationFrame(anim), { passive: true }));
+
+   document.addEventListener('click', e => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const id = a.getAttribute('href');
+      if (id.length < 2) return;
+      const el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+
+      const wasOpen = body.classList.contains('menu-open');
+      if (wasOpen) setMenu(false);
+      const go = () => {
+         const y = id === '#home' ? 0 : el.getBoundingClientRect().top + window.scrollY - 56;
+         scrollToY(Math.max(0, y));
+         history.replaceState(null, '', id);
+      };
+      // let the menu fade out and the page unlock before scrolling
+      wasOpen ? setTimeout(go, 350) : go();
+   });
+})();
+
+// Pause the wave-light animation when the hero is off screen (saves GPU while scrolling)
+(function(){
+   const hero = document.getElementById('home');
+   if (!hero || !('IntersectionObserver' in window)) return;
+   new IntersectionObserver(([en]) => hero.classList.toggle('hero-off', !en.isIntersecting)).observe(hero);
+})();
 
 // Contact form
 const form = document.getElementById('contactForm');
