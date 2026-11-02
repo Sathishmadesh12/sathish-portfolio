@@ -72,7 +72,7 @@ updateNav();
       const wasOpen = body.classList.contains('menu-open');
       if (wasOpen) setMenu(false);
       const go = () => {
-         const y = id === '#home' ? 0 : el.getBoundingClientRect().top + window.scrollY - 56;
+         const y = id === '#home' ? 0 : (window.cardTop ? window.cardTop(el) : el.getBoundingClientRect().top + window.scrollY - 56);
          scrollToY(Math.max(0, y));
          history.replaceState(null, '', id);
       };
@@ -279,4 +279,29 @@ form.addEventListener('submit', async (e) => {
    try { saved = localStorage.getItem('wx') || 'clear'; } catch (e) {}
    resize();
    setWeather(saved, false);
+})();
+
+// Stacking cards: tall cards pin by their BOTTOM edge so none of their content gets cut off
+(function(){
+   const cards = [...document.querySelectorAll('main > section, .footer')];
+   function pin(){
+      const vh = window.innerHeight;
+      cards.forEach(c => {
+         const sticky = getComputedStyle(c).position === 'sticky';
+         c.style.top = sticky ? Math.min(0, vh - c.offsetHeight) + 'px' : '';
+      });
+   }
+   // where a card sits in the normal page flow (needed for the menu / anchor links)
+   window.cardTop = el => {
+      // phones / non-sticky: the card is in normal flow, so just measure it
+      if (getComputedStyle(el).position !== 'sticky') return Math.max(0, el.getBoundingClientRect().top + window.scrollY - 56);
+      let y = 0;
+      for (const c of cards){ if (c === el) break; y += c.offsetHeight; }
+      return y;
+   };
+   pin();
+   window.addEventListener('resize', pin);
+   window.addEventListener('load', pin);
+   if (document.fonts && document.fonts.ready) document.fonts.ready.then(pin);
+   if ('ResizeObserver' in window){ const ro = new ResizeObserver(pin); cards.forEach(c => ro.observe(c)); }
 })();
