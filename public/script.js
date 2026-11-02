@@ -158,8 +158,8 @@ form.addEventListener('submit', async (e) => {
    let mode = 'clear', W = 0, H = 0, dpr = 1, parts = [], raf = 0, visible = true, nextFlash = 0;
 
    function resize(){
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
       W = window.innerWidth; H = window.innerHeight;
+      dpr = W < 700 ? 1 : Math.min(window.devicePixelRatio || 1, 2);   // phones: lighter canvas
       cv.width = W * dpr; cv.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       build();
@@ -192,7 +192,11 @@ form.addEventListener('submit', async (e) => {
                v:(r < 0.5 ? -1 : 1) * (0.12 + r * 0.25), a:0.07 + r * 0.08 };
    }
 
+   let lastDraw = 0;
    function frame(t){
+      // phones: draw at ~30fps so the weather never competes with scrolling
+      if (W < 700 && t - lastDraw < 30){ raf = requestAnimationFrame(frame); return; }
+      lastDraw = t;
       ctx.clearRect(0, 0, W, H);
       if (mode === 'sun'){
          const g = ctx.createRadialGradient(W * 0.8, H * 0.12, 0, W * 0.8, H * 0.12, Math.max(W, H) * 0.75);
