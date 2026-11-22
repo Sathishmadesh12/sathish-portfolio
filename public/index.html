@@ -11,8 +11,31 @@
    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
    <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="luxe.css">
+   <link rel="stylesheet" href="luxe-plus.css">
+   <script>
+      /* Luxe motion layer: only when the visitor allows motion */
+      (function(d){
+         if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+         d.classList.add('lux');
+         var c = navigator.connection || {};
+         var slow = c.saveData || /2g/.test(c.effectiveType || '');
+         try { if (!slow && !sessionStorage.getItem('luxSeen')) d.classList.add('lux-load'); } catch (e) {}
+      })(document.documentElement);
+   </script>
 </head>
 <body>
+
+   <!-- Luxe preloader (first visit per session) -->
+   <div class="lux-loader" id="luxLoader" aria-hidden="true">
+      <div class="lux-loader-inner">
+         <p class="lux-loader-name"><span>Sathish</span> <span>Kumar</span> <span>M</span></p>
+         <div class="lux-loader-bar"><i id="luxBar"></i></div>
+         <p class="lux-loader-meta"><span>Full Stack Developer</span><b id="luxPct">0</b></p>
+      </div>
+   </div>
+   <div class="lux-cursor" id="luxCursor" aria-hidden="true"><span id="luxCursorText"></span></div>
+   <div class="lux-cursor-dot" id="luxDot" aria-hidden="true"></div>
 
    <header class="nav" id="nav">
       <a href="#home" class="brand">Sathish Kumar M</a>
@@ -476,5 +499,7 @@
    <div class="hero-flash" id="heroFlash" aria-hidden="true"></div>
 
    <script src="script.js"></script>
+   <script src="luxe.js"></script>
+   <script src="luxe-plus.js"></script>
 </body>
 </html>

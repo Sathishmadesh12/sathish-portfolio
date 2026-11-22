@@ -1,0 +1,275 @@
+/* =========================================================
+   LUXE MOTION LAYER
+   Sits on top of style.css. Does not change the design,
+   only adds motion. Everything is gated behind html.lux,
+   which is only set when the visitor allows motion — so
+   without JS (or with reduced motion) the site looks exactly
+   as before.
+
+   Desktop (mouse):  preloader, hero intro, custom cursor,
+                     magnetic + shine buttons, mouse parallax,
+                     project row glow, card spotlight + tilt,
+                     masked word reveals, staggered reveals
+   Mobile (touch):   shorter preloader, hero intro, soft tap
+                     ripples, haptics, tilt-to-move hero,
+                     floating hero light, counters
+   ========================================================= */
+:root{
+   --lux-ease: cubic-bezier(.16,1,.3,1);      /* long, soft settle */
+   --lux-io:   cubic-bezier(.76,0,.24,1);     /* curtain in/out */
+}
+
+/* ---------------------------------------------------------
+   PRELOADER — name rises letter by letter, hairline fills,
+   then the black curtain lifts off the hero
+   --------------------------------------------------------- */
+.lux-loader{ display:none; }
+html.lux-load .lux-loader{
+   display:flex; position:fixed; inset:0; z-index:1000; align-items:center; justify-content:center;
+   background:#050505; color:#fff;
+   clip-path:inset(0 0 0 0); transition:clip-path 1.1s var(--lux-io);
+   animation:luxSafety 0s 6s forwards;               /* never trap the page */
+}
+@keyframes luxSafety{ to{ visibility:hidden; } }
+.lux-loader.out{ clip-path:inset(0 0 100% 0); }
+.lux-loader-inner{ width:min(420px, 78vw); transition:opacity .5s ease, transform .9s var(--lux-io); }
+.lux-loader.out .lux-loader-inner{ opacity:0; transform:translateY(-40px); }
+.lux-loader-name{ font-size:clamp(1.6rem,4vw,2.4rem); font-weight:300; letter-spacing:-0.02em; margin-bottom:22px; overflow:hidden; }
+.lux-loader-name .ch{ display:inline-block; transform:translateY(110%); opacity:0; animation:luxRise .9s var(--lux-ease) forwards; animation-delay:calc(var(--i) * 35ms + 120ms); }
+@keyframes luxRise{ to{ transform:none; opacity:1; } }
+.lux-loader-bar{ height:1px; background:rgba(255,255,255,.14); overflow:hidden; }
+.lux-loader-bar i{ display:block; height:100%; width:100%; transform-origin:0 50%; transform:scaleX(0);
+   background:linear-gradient(90deg,#bfe3f7,#e9c3dc 55%,#e2a8cf); }
+.lux-loader-meta{ display:flex; justify-content:space-between; margin-top:14px; font-size:.66rem; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.5); }
+.lux-loader-meta b{ font-weight:400; color:#fff; font-variant-numeric:tabular-nums; }
+
+/* ---------------------------------------------------------
+   HERO INTRO — slow zoom-out on the wave, words rise
+   from behind a mask with a soft blur
+   --------------------------------------------------------- */
+html.lux .hero-media{ scale:1.14; transition:filter .8s ease, opacity .8s ease, scale 2.6s var(--lux-ease), translate 1.4s var(--lux-ease); }
+html.lux.lux-go .hero-media{ scale:1.04; }       /* stays slightly bigger so mouse parallax never shows an edge */
+
+html.lux .hero h1 .lw{ display:inline-block; overflow:hidden; vertical-align:top; padding-bottom:.1em; margin-bottom:-.1em; }
+html.lux .hero h1 .lw > span{
+   display:inline-block; transform:translateY(105%) rotate(3deg); transform-origin:0 100%; filter:blur(8px); opacity:0;
+   transition:transform 1.3s var(--lux-ease), filter 1.3s var(--lux-ease), opacity 1s ease;
+   transition-delay:calc(var(--i) * 70ms + 150ms);
+}
+html.lux.lux-go .hero h1 .lw > span{ transform:none; filter:none; opacity:1; }
+
+html.lux .hero .eyebrow{ letter-spacing:.6em; opacity:0; transition:letter-spacing 1.6s var(--lux-ease), opacity 1.2s ease; }
+html.lux.lux-go .hero .eyebrow{ letter-spacing:.22em; opacity:1; }
+html.lux .hero-sub, html.lux .hero .pill, html.lux .hero-proof{ opacity:0; transform:translateY(22px); transition:opacity 1.1s ease, transform 1.3s var(--lux-ease); }
+html.lux.lux-go .hero-sub{ opacity:1; transform:none; transition-delay:.75s; }
+html.lux.lux-go .hero .pill{ opacity:1; transform:none; transition-delay:.9s, .9s; }
+html.lux.lux-go .hero-proof{ opacity:1; transform:none; transition-delay:1.05s; }
+html.lux .nav{ opacity:0; translate:0 -16px; transition:opacity 1s ease .2s, translate 1.2s var(--lux-ease) .2s, color .4s ease, background .4s ease, padding .25s ease, border-color .4s ease; }
+html.lux.lux-go .nav{ opacity:1; translate:0 0; }
+
+/* a soft light that floats across the hero */
+html.lux .hero::after{
+   content:''; position:absolute; z-index:0; width:60vmax; height:60vmax; left:50%; top:50%; pointer-events:none; border-radius:50%;
+   background:radial-gradient(circle, rgba(255,255,255,.55) 0%, rgba(255,255,255,.12) 35%, transparent 65%);
+   translate:calc(-50% + var(--lx, 0px)) calc(-50% + var(--ly, 0px)); transition:translate 1.6s var(--lux-ease);
+   mix-blend-mode:soft-light; opacity:0; animation:luxGlowIn 2s ease 1s forwards;
+}
+@keyframes luxGlowIn{ to{ opacity:1; } }
+
+/* ---------------------------------------------------------
+   BUTTONS — magnetic pull (JS) + a light glint on hover
+   --------------------------------------------------------- */
+html.lux .pill{ position:relative; overflow:hidden; isolation:isolate; transition:background .3s ease, color .3s ease, opacity .3s ease, transform .6s var(--lux-ease), box-shadow .5s ease; }
+html.lux .pill::after{
+   content:''; position:absolute; inset:-2px; z-index:-1; pointer-events:none;
+   background:linear-gradient(110deg, transparent 30%, rgba(255,255,255,.35) 48%, rgba(255,255,255,.08) 52%, transparent 70%);
+   transform:translateX(-120%); transition:transform 1s var(--lux-ease);
+}
+html.lux .pill i{ transition:transform .6s var(--lux-ease); }
+@media (hover:hover){
+   html.lux .pill:hover::after{ transform:translateX(120%); }
+   html.lux .pill:hover i{ transform:translateX(5px); }
+   html.lux .pill-black:hover{ box-shadow:0 14px 34px -12px rgba(27,21,48,.55); }
+}
+
+/* ---------------------------------------------------------
+   CUSTOM CURSOR (desktop only)
+   --------------------------------------------------------- */
+.lux-cursor, .lux-cursor-dot{ display:none; }
+html.lux-cursor-on .lux-cursor, html.lux-cursor-on .lux-cursor-dot{ display:block; position:fixed; left:0; top:0; z-index:999; pointer-events:none; }
+html.lux-cursor-on .lux-cursor{
+   width:40px; height:40px; margin:-20px 0 0 -20px; border-radius:50%; border:1px solid #fff; mix-blend-mode:difference;
+   display:grid; place-items:center;
+   transition:width .5s var(--lux-ease), height .5s var(--lux-ease), margin .5s var(--lux-ease), background .4s, border-color .4s, opacity .3s;
+}
+html.lux-cursor-on .lux-cursor-dot{ width:5px; height:5px; margin:-2.5px 0 0 -2.5px; border-radius:50%; background:#fff; mix-blend-mode:difference; transition:opacity .3s, scale .3s; }
+.lux-cursor.link{ width:64px; height:64px; margin:-32px 0 0 -32px; background:#fff; }
+.lux-cursor.label{ width:96px; height:96px; margin:-48px 0 0 -48px; background:#fff; border-color:#fff; }
+.lux-cursor span{ font-size:.62rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:#000; opacity:0; transition:opacity .3s; }
+.lux-cursor.label span{ opacity:1; }
+.lux-cursor.label + .lux-cursor-dot, .lux-cursor.link + .lux-cursor-dot{ opacity:0; }
+.lux-cursor.down{ scale:.8; }
+.lux-cursor.gone, .lux-cursor.gone + .lux-cursor-dot{ opacity:0; }
+html.lux-cursor-on body, html.lux-cursor-on a, html.lux-cursor-on button, html.lux-cursor-on summary, html.lux-cursor-on label{ cursor:none; }
+html.lux-cursor-on input, html.lux-cursor-on textarea{ cursor:text; }
+
+/* ---------------------------------------------------------
+   SCROLL REVEALS (JS adds .lx to targets, .in when visible)
+   --------------------------------------------------------- */
+html.lux .lx{ opacity:0; transform:translate3d(0,30px,0); filter:blur(6px); transition:opacity 1.1s ease, transform 1.4s var(--lux-ease), filter 1.2s var(--lux-ease); transition-delay:calc(var(--d, 0) * 85ms); }
+html.lux .lx.in{ opacity:1; transform:none; filter:none; }
+html.lux .lx.in.lx-done{ transition-delay:0s; }   /* hover effects stay instant after the reveal */
+
+/* masked word reveal for section headings */
+html.lux .lh .lw{ display:inline-block; overflow:hidden; vertical-align:top; padding-bottom:.12em; margin-bottom:-.12em; }
+html.lux .lh .lw > span{ display:inline-block; transform:translateY(110%); transition:transform 1.2s var(--lux-ease); transition-delay:calc(var(--i) * 55ms); }
+html.lux .lh.in .lw > span{ transform:none; }
+
+/* eyebrows: a hairline draws in front of the label */
+html.lux .eyebrow.lx-line{ display:inline-flex; align-items:center; gap:0; }
+html.lux .eyebrow.lx-line::before{ content:''; width:0; height:1px; background:currentColor; opacity:.6; transition:width 1.2s var(--lux-ease) .1s, margin .1s; }
+html.lux .eyebrow.lx-line.in::before{ width:28px; margin-right:12px; }
+
+/* tags + chips pop one after another */
+html.lux .tags.lx-kids li, html.lux .footer-stack.lx-kids li{ opacity:0; transform:translateY(10px) scale(.9); transition:opacity .6s ease, transform .8s var(--lux-ease), background .3s, border-color .3s, color .3s; transition-delay:calc(var(--k) * 45ms + 200ms); }
+html.lux .tags.lx-kids.in li, html.lux .footer-stack.lx-kids.in li{ opacity:1; transform:none; }
+
+/* process: the top line draws, the number pops */
+html.lux .proc li.lx{ border-top-color:transparent; filter:none; }
+html.lux .proc li.lx::after{ content:''; position:absolute; left:0; right:0; top:-2px; height:2px; background:var(--ink); transform:scaleX(0); transform-origin:0 50%; transition:transform 1.3s var(--lux-io); transition-delay:calc(var(--d, 0) * 150ms + 150ms); }
+html.lux .proc li.lx.in::after{ transform:scaleX(1); }
+html.lux .proc li.lx::before{ scale:0; z-index:1; transition:scale .8s cubic-bezier(.34,1.56,.64,1); transition-delay:calc(var(--d, 0) * 150ms + 100ms); }
+html.lux .proc li.lx.in::before{ scale:1; }
+
+/* experience bullets: dot grows, line slides in */
+html.lux .bullets.lx-kids li{ opacity:0; transform:translateX(-18px); transition:opacity .8s ease, transform 1.1s var(--lux-ease); transition-delay:calc(var(--k) * 90ms + 150ms); }
+html.lux .bullets.lx-kids li::before{ scale:0; transition:scale .7s cubic-bezier(.34,1.56,.64,1); transition-delay:calc(var(--k) * 90ms + 350ms); }
+html.lux .bullets.lx-kids.in li{ opacity:1; transform:none; }
+html.lux .bullets.lx-kids.in li::before{ scale:1; }
+
+/* ---------------------------------------------------------
+   PROJECT ROWS — pastel light follows the mouse, a hairline
+   sweeps across the top, the title glides
+   --------------------------------------------------------- */
+html.lux .work-item{ position:relative; isolation:isolate; }
+html.lux .work-item::before{
+   content:''; position:absolute; inset:0 calc(var(--pad-x) * -.5); z-index:-1; border-radius:24px; pointer-events:none; opacity:0;
+   background:radial-gradient(520px circle at var(--mx,50%) var(--my,50%), rgba(233,195,220,.45), rgba(191,227,247,.25) 40%, transparent 70%);
+   transition:opacity .6s ease;
+}
+html.lux .work-item::after{ content:''; position:absolute; left:0; right:0; top:-1px; height:1px; background:var(--ink); transform:scaleX(0); transform-origin:100% 50%; transition:transform .9s var(--lux-io); }
+html.lux .work-title h3, html.lux .work-title p{ transition:transform .9s var(--lux-ease), letter-spacing .9s var(--lux-ease); }
+html.lux .visit{ position:relative; border-bottom-color:transparent; }
+html.lux .visit::after{ content:''; position:absolute; left:0; right:0; bottom:-1px; height:1px; background:currentColor; transform-origin:0 50%; transition:transform .7s var(--lux-io); }
+html.lux .visit i{ transition:transform .6s var(--lux-ease); }
+@media (hover:hover) and (min-width:701px){
+   html.lux .work-item:hover::before{ opacity:1; }
+   html.lux .work-item:hover::after{ transform:scaleX(1); transform-origin:0 50%; }
+   html.lux .work-item:hover .work-title h3{ transform:translateX(12px); }
+   html.lux .work-item:hover .work-title p{ transform:translateX(12px); transition-delay:.05s; }
+   html.lux .work-item:hover .tags li{ border-color:#c9b6d6; }
+   html.lux .visit:hover{ opacity:1; }
+   html.lux .visit:hover::after{ transform:scaleX(0); transform-origin:100% 50%; }
+   html.lux .visit:hover i{ transform:translate(3px,-3px); }
+}
+
+/* ---------------------------------------------------------
+   DARK SKILL CARDS — spotlight, glowing edge, soft 3D tilt
+   --------------------------------------------------------- */
+html.lux :is(.card, .stack-cols article, .flow li){ position:relative; isolation:isolate; transform-style:preserve-3d; }
+html.lux :is(.card, .stack-cols article, .flow li)::before{
+   content:''; position:absolute; inset:0; z-index:-1; border-radius:inherit; opacity:0; transition:opacity .5s ease; pointer-events:none;
+   background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%), rgba(191,227,247,.10), rgba(233,195,220,.05) 40%, transparent 65%);
+}
+html.lux .card::after, html.lux .stack-cols article::after{
+   content:''; position:absolute; inset:0; border-radius:inherit; padding:1px; pointer-events:none; opacity:0; transition:opacity .5s ease;
+   background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%), rgba(233,195,220,.9), rgba(191,227,247,.5) 40%, transparent 70%);
+   -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude;
+}
+html.lux .card .icon-box{ transition:transform .8s var(--lux-ease), background .5s, color .5s; }
+@media (hover:hover) and (min-width:701px){
+   html.lux :is(.card, .stack-cols article, .flow li):hover::before,
+   html.lux :is(.card, .stack-cols article):hover::after{ opacity:1; }
+   html.lux .card:hover .icon-box{ transform:translateZ(30px) rotate(-8deg); background:#fff; color:#0a0a0a; }
+   html.lux .card.lx.in{ transition:opacity 1.1s ease, transform .5s var(--lux-ease), filter 1.2s var(--lux-ease); }
+}
+
+/* services: icon flips to the pastel gradient on hover */
+html.lux .svc-ico{ transition:transform .8s var(--lux-ease), background .5s ease; }
+@media (hover:hover){
+   html.lux .svc article:hover .svc-ico{ transform:rotate(-10deg) scale(1.08); background:linear-gradient(135deg,#bfe3f7,#e9c3dc 55%,#e2a8cf); color:#1b1530; }
+}
+
+/* ---------------------------------------------------------
+   ABOUT — portrait opens like an iris, a pastel ring orbits
+   --------------------------------------------------------- */
+html.lux .lux-portrait{ position:relative; max-width:360px; margin:0 auto; aspect-ratio:1; }
+html.lux .lux-portrait img{ max-width:100%; clip-path:circle(0% at 50% 50%); scale:1.25; transition:clip-path 1.8s var(--lux-io), scale 2.2s var(--lux-ease); }
+html.lux .lux-portrait.in img{ clip-path:circle(50% at 50% 50%); scale:1; }
+html.lux .lux-portrait::before{
+   content:''; position:absolute; inset:-14px; border-radius:50%; padding:1.5px; pointer-events:none;
+   background:conic-gradient(from 0deg, #bfe3f7, #e9c3dc, #e2a8cf, transparent 55%, transparent 80%, #bfe3f7);
+   -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude;
+   opacity:0; transition:opacity 1.4s ease .9s; animation:luxOrbit 9s linear infinite;
+}
+html.lux .lux-portrait::after{ /* tiny moon riding the ring */
+   content:''; position:absolute; left:50%; top:-18px; width:8px; height:8px; margin-left:-4px; border-radius:50%; background:#e9c3dc; box-shadow:0 0 16px 4px rgba(233,195,220,.7);
+   transform-origin:4px 198px; opacity:0; transition:opacity 1.4s ease 1.2s; animation:luxOrbit 9s linear infinite;
+}
+html.lux .lux-portrait.in::before, html.lux .lux-portrait.in::after{ opacity:1; }
+@keyframes luxOrbit{ to{ transform:rotate(360deg); } }
+@media (max-width:1000px){ html.lux .lux-portrait{ max-width:240px; margin:0; } html.lux .lux-portrait::after{ transform-origin:4px 138px; } }
+@media (max-width:700px){ html.lux .lux-portrait{ max-width:180px; } html.lux .lux-portrait::after{ transform-origin:4px 108px; } }
+
+/* the strong words in About get a pastel underline as they appear */
+html.lux .about-copy strong{ background:linear-gradient(90deg,#bfe3f7,#e9c3dc) 0 100% / 0 1px no-repeat; transition:background-size 1.4s var(--lux-io) .6s; padding-bottom:1px; }
+html.lux .about-copy.in strong{ background-size:100% 1px; }
+
+/* ---------------------------------------------------------
+   FAQ / footer / form details
+   --------------------------------------------------------- */
+html.lux .faq summary{ transition:padding .6s var(--lux-ease), color .3s; }
+@media (hover:hover){ html.lux .faq summary:hover{ padding-left:10px; } }
+html.lux .faq summary::after{ transition:transform .7s var(--lux-ease); }
+html.lux .faq details p{ overflow:hidden; }
+
+html.lux .footer ul a{ background:linear-gradient(currentColor,currentColor) 100% 100% / 0 1px no-repeat; transition:background-size .7s var(--lux-io), color .3s; }
+@media (hover:hover){ html.lux .footer ul a:hover{ background-size:100% 1px; background-position:0 100%; } }
+html.lux .social a, html.lux .menu-social a{ transition:background .4s, color .4s, border-color .4s, transform .6s var(--lux-ease); }
+@media (hover:hover){ html.lux .social a:hover{ transform:translateY(-4px); background:var(--ink); color:#fff; border-color:var(--ink); } }
+
+html.lux .field input, html.lux .field textarea{ transition:border-color .4s, box-shadow .6s var(--lux-ease), transform .6s var(--lux-ease); }
+html.lux .field input:focus, html.lux .field textarea:focus{ box-shadow:0 0 0 4px rgba(233,195,220,.45), 0 16px 34px -20px rgba(27,21,48,.35); transform:translateY(-2px); }
+html.lux .field .invalid{ animation:luxShake .5s var(--lux-ease); }
+@keyframes luxShake{ 20%,60%{ transform:translateX(-6px); } 40%,80%{ transform:translateX(6px); } }
+html.lux .pill.lux-sent{ background:#137333; }
+
+/* ---------------------------------------------------------
+   MOBILE (<= 700px) — touch-first motion
+   --------------------------------------------------------- */
+.lux-ripple{ position:absolute; border-radius:50%; pointer-events:none; transform:scale(0); opacity:.35; z-index:5;
+   background:radial-gradient(circle, rgba(233,195,220,.9), rgba(191,227,247,.5) 60%, transparent 70%); animation:luxRipple .8s var(--lux-ease) forwards; }
+.dark .lux-ripple, .card .lux-ripple{ background:radial-gradient(circle, rgba(255,255,255,.35), rgba(191,227,247,.15) 60%, transparent 70%); }
+@keyframes luxRipple{ to{ transform:scale(1); opacity:0; } }
+
+@media (max-width:700px){
+   /* shorter, lighter hero intro: words rise without blur (cheaper on phones) */
+   html.lux .hero h1 .lw > span{ filter:none; transform:translateY(100%); transition-duration:1s, 1s, .8s; transition-delay:calc(var(--i) * 55ms + 100ms); }
+   html.lux .hero-media{ scale:1.1; }
+   html.lux.lux-go .hero-media{ scale:1.06; }
+   /* the hero light floats on its own on phones */
+   html.lux .hero::after{ width:90vmax; height:90vmax; animation:luxGlowIn 2s ease 1s forwards, luxFloat 12s ease-in-out 1s infinite alternate; transition:none; }
+   @keyframes luxFloat{ 0%{ translate:-70% -60%; } 50%{ translate:-30% -40%; } 100%{ translate:-55% -20%; } }
+   /* reveals: no blur, shorter travel */
+   html.lux .lx{ filter:none; transform:translate3d(0,22px,0); transition-duration:.8s, 1s, 0s; transition-delay:calc(var(--d, 0) * 60ms); }
+   html.lux .lux-loader-name{ margin-bottom:18px; }
+}
+
+/* reduced motion: never hide anything */
+@media (prefers-reduced-motion: reduce){
+   html.lux .lx, html.lux .lh .lw > span, html.lux .hero h1 .lw > span, html.lux .tags.lx-kids li, html.lux .bullets.lx-kids li{ opacity:1 !important; transform:none !important; filter:none !important; }
+}
+
+/* once the hero intro has played, hero hover effects respond instantly */
+html.lux-intro-done .hero .pill, html.lux-intro-done .hero-sub, html.lux-intro-done .hero-proof{ transition-delay:0s !important; }
+html.lux-intro-done .hero .pill{ transition:background .3s ease, color .3s ease, opacity .3s ease, transform .6s var(--lux-ease), box-shadow .5s ease; }
